@@ -10,7 +10,10 @@
    <buildInfo:comment />
 
     <g:render template="/public_theme_includes"></g:render>
-    <g:render template="/landing_theme_includes"></g:render>
+
+    <asset:javascript src="landingPageIncludes.js"/>
+    <asset:javascript src="portal/utils/BrowserCheck.js"/>
+   <asset:stylesheet src="landingPageStyle.css"/>
 
     <script type="text/javascript">
         %{--<portal:motdPopup />  todo fix --}%
