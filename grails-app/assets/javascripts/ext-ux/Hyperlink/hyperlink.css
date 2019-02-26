@@ -1,0 +1,14 @@
+.x-hyperlink {
+	display: inline-block;
+  cursor: pointer;
+}
+.disabled * {
+    opacity: 0.5;
+}
+.disabled a:hover {
+    text-decoration: none;
+}
+
+.x-hyperlink-anchor:hover { 
+	text-decoration: underline;
+}
