@@ -4,5 +4,7 @@ import au.org.emii.portal.proxying.RequestProxyingController
 
 class ProxyController extends RequestProxyingController {
 
-    // Index action inherited from RequestProxyingController
+    def index = {
+        super._performProxyingIfAllowed(params)
+    }
 }

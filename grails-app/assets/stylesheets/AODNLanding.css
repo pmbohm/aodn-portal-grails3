@@ -56,6 +56,7 @@ img {
 }
 
 #home {
+    padding: 50px 0;
     background: #246190 url(../images/AODN/landing/Nature-Clear-Sky-Blue-Water.jpg) no-repeat top center fixed;
     box-shadow: inset 0 0 59px 3px rgba(16, 64,94, 0.9);
     -webkit-background-size: cover;
@@ -97,7 +98,7 @@ img {
 
 }
 
-#home .homeContent p {
+#home  p {
     font-family: "Oswald",sans-serif;
     font-size: 1.8em;
     margin: 10px 0 20px 0;
@@ -132,12 +133,6 @@ a:focus {
 
 .socialLinks {
     text-align: right;
-}
-
-@media (min-width: 1000px) {
-    .container{
-        max-width: 800px;
-    }
 }
 
 @media (max-width: 1000px)  {

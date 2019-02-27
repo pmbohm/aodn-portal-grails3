@@ -14,7 +14,8 @@
         <!-- User extensions -->
         <link rel="stylesheet" type="text/css" href="${resource(dir: 'js', file: 'ext-ux/Hyperlink/hyperlink.css')}" />
 
-        <g:render template="/js_includes"></g:render>
+        <asset:javascript src="jquery/jqueryIncludes.js" />
+        <asset:javascript src="portal/portalIncludes.js" />
         <g:render template="/public_theme_includes"></g:render>
 
         <script type="text/javascript">

@@ -1,16 +1,11 @@
 package au.org.emii.portal.proxying
 
-import au.org.emii.portal.HttpUtils
-
-import static au.org.emii.portal.HttpUtils.Status.HTTP_400_BAD_REQUEST
-import static au.org.emii.portal.HttpUtils.Status.HTTP_403_FORBIDDEN
-
 abstract class HostVerifyingController {
     def hostVerifier
 
     def ifAllowed = { url, closure ->
 
-        if (!url) {
+/*        if (!url) {
             render text: "No URL supplied", contentType: "text/html", encoding: "UTF-8", status: HttpUtils.Status.HTTP_400_BAD_REQUEST
         }
         else if (!hostVerifier.allowedHost(url)) {
@@ -19,6 +14,6 @@ abstract class HostVerifyingController {
         }
         else {
             closure()
-        }
+        }*/
     }
 }

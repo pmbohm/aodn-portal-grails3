@@ -1,5 +1,3 @@
--portal-grails3
-
 class UrlMappings {
 
     static mappings = {

@@ -13,4 +13,15 @@ class LandingController {
         )
     }
 
+    def facets = {
+        render(
+                view: "index",
+                model:[
+                        facet
+                        resourceVersionNumber: grailsApplication.metadata.'app.version',
+                        portalConf: grailsApplication.config.portal,
+                ]
+        )
+    }
+
 }

@@ -13,7 +13,10 @@
 
     <asset:javascript src="landingPageIncludes.js"/>
     <asset:javascript src="portal/utils/BrowserCheck.js"/>
-   <asset:stylesheet src="landingPageStyle.css"/>
+    <asset:stylesheet src="landingPageStyle.css"/>
+
+
+   <asset:javascript src="portal/utils/BrowserCheck.js"/>
 
     <script type="text/javascript">
         %{--<portal:motdPopup />  todo fix --}%
@@ -48,8 +51,8 @@
         <div class="row">
 
             <div class="col-md-5 ">
-sdasdasd
-              %{--<g:render template="/searchTree"></g:render>--}%
+            <h1>Ocean data finder</h1>
+                <g:render template="/landing/dataFinderTree"></g:render>
             </div>
             <div class="col-md-7 text-left">
                 <div class="text-vcenter">

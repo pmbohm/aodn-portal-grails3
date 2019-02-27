@@ -15,7 +15,7 @@ info:
         grailsVersion: '@info.app.grailsVersion@'
 spring:
     main:
-        banner-mode: "off"
+        banner-mode: 'off'
     groovy:
         template:
             check-template-location: false
@@ -88,64 +88,287 @@ hibernate:
         queries: false
         use_second_level_cache: false
         use_query_cache: false
-dataSource:
-    pooled: true
-    jmxExport: true
-    driverClassName: org.h2.Driver
-    username: sa
-    password: ''
+
 
 environments:
     development:
-        dataSource:
-            dbCreate: create-drop
-            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+        geonetwork.url: 'https://catalogue-imos.aodn.org.au/geonetwork'
+        gogoduck.filenamePrepend: 'IMOS_aggregation'
         server:
             port: 9001
     test:
-        dataSource:
-            dbCreate: update
-            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+
     production:
-        dataSource:
-            dbCreate: none
-            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-            properties:
-                jmxEnabled: true
-                initialSize: 5
-                maxActive: 50
-                minIdle: 5
-                maxIdle: 25
-                maxWait: 10000
-                maxAge: 600000
-                timeBetweenEvictionRunsMillis: 5000
-                minEvictableIdleTimeMillis: 60000
-                validationQuery: SELECT 1
-                validationQueryTimeout: 3
-                validationInterval: 15000
-                testOnBorrow: true
-                testWhileIdle: true
-                testOnReturn: false
-                jdbcInterceptors: ConnectionState
-                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 
 # Portal help site
 help:
-    url: "https://help.aodn.org.au/"
+    url: 'https://help.aodn.org.au/'
 
 oceanCurrent:
-    url: "http://oceancurrent.aodn.org.au"
-
+    url: 'http://oceancurrent.aodn.org.au'
 
 portal:
-    motdUrl: "https://static.emii.org.au/motd"
-    logo: "https://static.emii.org.au/images/logo/AODN_logo_fullText.png"
-    secondaryLogo: "https://static.emii.org.au/images/logo/IMOS_logo-stacked-reversed-Converted.png"
-    icon: "https://static.emii.org.au/images/aodn/favicon.ico"
-    localThemeCss: "AODNTheme.css"
-    siteHeader: "Open Access to Ocean Data"
-    contactEmail: "info@aodn.org.au"
-    siteAcronym: "AODN"
-    emailSignature: "Kind regards,\nThe AODN Team."
-    emailFooter: "The AODN Portal provides access to all available Australian marine and climate science data and provides the primary access to IMOS data including access to the IMOS metadata. \nIMOS is supported by the Australian Government through the National Collaborative Research Infrastructure Strategy and the Super Science Initiative."
-    conditionOfUse: "http://imos.org.au/imostermsofuse0.html"
+    motdUrl: 'https://static.emii.org.au/motd'
+    logo: 'https://static.emii.org.au/images/logo/AODN_logo_fullText.png'
+    secondaryLogo: 'https://static.emii.org.au/images/logo/IMOS_logo-stacked-reversed-Converted.png'
+    icon: 'https://static.emii.org.au/images/aodn/favicon.ico'
+    localThemeCss: 'AODNTheme.css'
+    siteHeader: 'Open Access to Ocean Data'
+    contactEmail: 'info@aodn.org.au'
+    siteAcronym: 'AODN'
+    emailSignature: 'Kind regards\nThe AODN Team.'
+    emailFooter: 'The AODN Portal provides access to all available Australian marine and climate science data and provides the primary access to IMOS data including access to the IMOS metadata. \nIMOS is supported by the Australian Government through the National Collaborative Research Infrastructure Strategy and the Super Science Initiative.'
+    conditionOfUse: 'http://imos.org.au/imostermsofuse0.html'
+
+    initialBbox: '110-50160-3'
+    defaultDatelineZoomBbox: '110-50160-3'
+    earliestDate: '1900'
+    latestDate: '3000'
+
+    popupWidth: 550
+    popupHeight: 325
+
+    footerContent:
+        - <a title="Email us for help in using this site" class="external" href="mailto:${portal.contactEmail}?subject=Portal enquiry - ">Contact</a> <b>|</b>
+          <a title="Data usage acknowledgement" target="_blank" class="external" href="${help.url}user-guide-introduction/aodn-portal/data-use-acknowledgement">Acknowledgement</a> <b>|</b>
+          <a title="Disclaimer information" target="_blank" class="external" href="${help.url}user-guide-introduction/aodn-portal/disclaimer">Disclaimer</a> <b>|</b>
+          <a title="Australian Ocean Data Network" target="_blank" class="external" href="http://imos.org.au/aodn.html">AODN</a> <b>|</b>
+          <a title="Integrated Marine Observing System" target="_blank" class="external" href="http://www.imos.org.au/">IMOS</a> <b>|</b>
+          <a title="AODN Portal User Guide" target="_blank" class="external" href="${help.url}contributing-data">Contributing</a>
+
+
+    # WPS result expiration period (48 hrs by default)
+    wpsResourceExpirationTimeout: 172800
+
+    # Various metadata record protocols in which the portal is interested.
+    metadataProtocols:
+        wms:
+            - 'OGC:WMS-1.1.1-http-get-map'
+            - 'OGC:WMS-1.3.0-http-get-map'
+            - 'IMOS:NCWMS--proto'
+
+        wfs:
+            - 'OGC:WFS-1.0.0-http-get-capabilities'
+            - 'AODN:WFS-EXTERNAL-1.0.0-http-get-capabilities'
+
+        dataFile:
+            - 'WWW:DOWNLOAD-1.0-http--download'
+            - 'WWW:DOWNLOAD-1.0-http--downloadother'
+            - 'WWW:DOWNLOAD-1.0-http--downloaddata'
+            - 'WWW:LINK-1.0-http--downloaddata'
+
+        supplementary:
+            - 'WWW:LINK-1.0-http--link'
+            - 'WWW:LINK-1.0-http--downloaddata'
+            - 'WWW:LINK-1.0-http--related'
+            - 'WWW:DOWNLOAD-1.0-ftp--download'
+
+        metadataRecord: 'WWW:LINK-1.0-http--metadata-URL'
+
+
+    # Download handler config (online resource protocol -> DownloadHandler class)
+    downloadHandlersForProtocol:
+        - handler: 'WfsDownloadHandler'
+          protocol: 'OGC:WFS-1.0.0-http-get-capabilities'
+        - handler: 'GogoduckDownloadHandler'
+          protocol: 'OGC:WPS--gogoduck'
+        - handler: 'DataTrawlerDownloadHandler'
+          protocol: 'WWW:DOWNLOAD-1.0-http--csiro-oa-app'
+        - handler: 'PointCSVDownloadHandler'
+          protocol: 'OGC:WPS--gogoduck'
+        - handler': 'PythonDownloadHandler'
+          protocol: 'AODN:WFS-EXTERNAL-1.0.0-http-get-capabilities'
+        - handler: 'BodaacDownloadHandler'
+          protocol: 'IMOS:AGGREGATION--bodaac'
+        - handler: 'FileListDownloadHandler'
+          protocol: 'AODN:FILE-list'
+        - handler: 'ShapeFileDownloadHandler'
+          protocol: 'OGC:WFS-1.0.0-http-get-feature--shapefile'
+        - handler: 'AlaDownloadHandler'
+          protocol: 'ALA:Occurrence-download'
+        - handler: 'GaDownloadHandler'
+          protocol: 'GA:Download'
+
+
+    mapGetFeatureInfoBuffer: 10
+
+
+geonetwork.searchPath: 'xml.search.imos'
+
+# ExternalRequest.groovy connect timeout value in milliseconds
+proxyConnectTimeout: 2000
+
+filtering:
+    baseUrl: 'https://raw.githubusercontent.com/aodn/filter-config/test'
+
+# This array should be populated from chef config
+knownServers:
+    -   uri: 'http://geoserver-123.aodn.org.au/geoserver/wms'
+        wmsVersion: '1.1.1'
+        type: 'GeoServer'
+        csvDownloadFormat: 'csv-with-metadata-header'#
+        urlListDownloadSubstitutions:
+        '^': 'http://data.aodn.org.au/'
+
+    -   uri: 'http://geoserver-rc.aodn.org.au/geoserver/wms'
+        wmsVersion: '1.1.1'
+        type: 'GeoserverCore'
+        csvDownloadFormat: 'csv-with-metadata-header'
+        filtersDir: 'imos-geoserver'
+        wpsUrl: 'http://geoserver-rc.aodn.org.au/geoserver/wps'
+
+    -   uri: 'http://nonprod.marine.ga.gov.au/geoserver/wms'
+        wmsVersion: '1.1.1'
+        type: 'GeoserverFilterConfig'
+        filtersDir: 'ga-geoserver'
+        wpsUrl: 'http://nonprod.marine.ga.gov.au/geoserver/wps'
+
+    -   uri: 'http://marine.ga.gov.au/geoserver/wms'
+        wmsVersion: '1.1.1'
+        type: 'GeoserverCore'
+
+    -   uri: 'http://nonprod.marine.ga.gov.au/api/'
+        type: 'GaDownload'
+
+    -   uri: 'https://www.cmar.csiro.au/geoserver/wms'
+        wmsVersion: '1.1.1'
+        type: 'GeoserverFilterConfig'
+        filtersDir: 'csiro-datatrawler'
+        wpsUrl: 'http://www.cmar.csiro.au/geoserver/wps'
+
+    -   uri: 'https://www.cmar.csiro.au/data/trawler/broker.cfm'
+        wmsVersion: '1.1.1'
+        type: 'datatrawlerserver'
+        csvDownloadFormat: 'csv-with-metadata-header'
+
+    -   uri: 'http://geoserver-123.aodn.org.au/geoserver/ncwms'
+        wmsVersion: '1.3.0'
+        type: 'ncWMS'
+
+    -   uri: 'https://www.cmar.csiro.au/geoserver/ncwms'
+        wmsVersion: '1.3.0'
+        type: 'ncWMS'
+
+    -   uri: 'http://biocache.ala.org.au/ws'
+        wmsVersion: '1.1.1'
+        type: 'ALA'
+
+    -   uri: 'http://data2.tpac.org.au/geoserver/ncwms'
+        wmsVersion: '1.3.0'
+        type: 'ncWMS'
+
+    -   uri: 'https://tilecache.aodn.org.au/geowebcache/service/wms'
+        wmsVersion: '1.1.1'
+        type: 'GeoServer'
+
+    -   uri: 'http://geoserver.imas.utas.edu.au/geoserver/wms'
+        wmsVersion: '1.1.1'
+        type: 'GeoServer'
+
+    -   uri: 'http://ncwms.aodn.org.au/ncwms/wms'
+        wmsVersion: '1.1.1'
+        type: 'ncWMS'
+        urlListDownloadSubstitutions:
+           '^/mnt/imos-t3/IMOS/opendap/': 'http://thredds.aodn.org.au/thredds/fileServer/IMOS/'
+
+    -   uri: 'http://rs-data1-mel.csiro.au/ncWMS/wms'
+        wmsVersion: '1.1.1'
+        type: 'ncWMS'
+
+    -   uri: 'http://catami.org/geoserver/catami/wms'
+        wmsVersion: '1.3.0'
+        type: 'GeoServer'
+
+# Server configuration
+baselayerServer:
+    uri: 'http://geoserver-static.aodn.org.au/geoserver/baselayers/wms'
+    wmsVersion: '1.1.1'
+
+
+baselayers:
+    - name: 'default_bathy'
+      title: 'Bathymetry Baselayer'
+      server: ${baselayerServer}
+    - name: 'default_basemap_simple'
+      title: 'Simple Baselayer'
+      server: ${baselayerServer}
+
+datalayerServer:
+    uri: 'http://geoserver-static.aodn.org.au/geoserver/datalayers/wms'
+    wmsVersion: '1.1.1'
+
+
+datalayers:
+    - name: 'datalayers:Australian_Marine_Parks'
+      title: 'Australian Marine Parks'
+      server: ${datalayerServer}
+
+# Search results mini map configuration
+minimap:
+    baselayer:
+        name: 'baselayer'
+        url: ${baselayerServer.uri}
+        params:
+            layers: 'default_bathy'
+
+
+oceanCurrent.url: 'http://oceancurrent.aodn.org.au'
+
+# Depth service
+depthService.url: 'http://geoserver-static.aodn.org.au/geoserver/wfs?typeName=world_depth_view&SERVICE=WFS&REQUEST=GetFeature&VERSION=1.0.0&outputFormat=application/json&viewparams='
+
+downloadAuth:
+    # Never show a captcha to those IP addresses
+    whitelistClients:
+        - '127.0.0.1'
+        - '0:0:0:0:0:0:0:1'
+
+
+    # Treat those as usual even if they're whitelisted
+    blacklistClients:
+
+    # Allow users to have to 2 aggregated downloads every 10 minutes without
+    # displaying a challenge (captcha)
+    maxAggregatedDownloadsInPeriod: 2
+    maxAggregatedDownloadsPeriodMinutes: 10
+
+
+featureToggles:
+    geonetworkLinkMonitor: false
+
+
+enabledFacets:
+  - name: 'parameterFilter'
+    key: 'Measured parameter'
+  - name: 'organisationFilter'
+    key: 'Organisation'
+    collapsedByDefault: true
+  - name: 'platformFilter'
+    key: 'Platform'
+  - name: 'temporalResolutionFilter'
+    key: 'Temporal Resolution'
+    collapsedByDefault: true
+  - classId: 'Portal.search.DateSelectionPanel'
+    name: 'dateFilter'
+  - classId: 'Portal.search.GeoSelectionPanel'
+    name: 'geoFilter'
+  - classId: 'Portal.search.FreeTextSearchPanel'
+    name: 'freetextFilter'
+    key: 'freetextFilter'
+    collapsedByDefault: false
+
+
+
+# Google Analytics
+googleAnalytics.trackingId: null
+
+# Hotjar
+hotjar.trackingId: null
+
+# Let's be careful about not being open to spamming.
+# This must be specifically enabled in order for emails to be sent from the app.
+# This can be changed once we have some other form of protection in place (e.g. apache locking
+# down which IP address are allowed to access certain email-producing URLs).
+grails.mail.disabled: true
+
+grails.app.context: '/'

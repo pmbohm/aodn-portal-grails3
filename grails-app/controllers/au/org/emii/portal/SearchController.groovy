@@ -34,6 +34,6 @@ class SearchController {
     }
 
     def footerContent = {
-        render text: portalConf.footerContent
+        render text: grailsApplication.config.footerContent
     }
 }

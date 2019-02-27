@@ -5,11 +5,11 @@
 // You're free to add application-wide JavaScript to this file, but it's generally better
 // to create separate JavaScript files as needed.
 //
-//= require jquery-2.2.4.min.js
-//= require bootstrap-3.3.6/js/bootstrap
-//= require popper
-//= //require vendor/node_modules/react/index.js
-//= require bootstrapTreeview.js
-//= require portal/landing/dataFinderTree
-
+//= require jquery-3.2.0-MODDED.js
+//= require jquery.ui.js
+//= require jquery-autocomplete1.1.js
+//= require jquery.cookie.js
+//= require jquery.fileDownload.js
+//= require jquery.layout.min.js
+//= require jquery.rotate.1-1.js
 //= require_self

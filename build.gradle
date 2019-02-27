@@ -58,7 +58,7 @@ dependencies {
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
 
-    // fixes for upgrade
+    // fixes for upgrade to Grails 3
     compile 'org.grails.plugins:http-builder-helper:1.1.0'
     compile "org.grails.plugins:csv:0.3.1"
     compile 'org.grails.plugins:joda-time:2.1.0'
@@ -71,9 +71,10 @@ bootRun {
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)
 }
 
+apply plugin: 'com.bertramlabs.asset-pipeline'
 
 assets {
     minifyJs = true
     minifyCss = true
-    developmentRuntime=false
+    //developmentRuntime=false // precompile in dev
 }
